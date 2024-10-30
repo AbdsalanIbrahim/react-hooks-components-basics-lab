@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-
 import App from "../components/App";
 
 test("renders without errors", () => {
@@ -8,15 +7,14 @@ test("renders without errors", () => {
 });
 
 test("renders the correct child components", () => {
-  const { container } = render(<App />);
+  render(<App />);
 
-  /*
-    Uncomment the line below to see the DOM elements being returned
-    by the App component in your terminal when you run the tests
-  */
-  // screen.debug();
+  // Check for the nav link text in NavBar
+  expect(screen.getByText("I'm a link!")).toBeInTheDocument();
 
-  expect(container.querySelector("nav")).toBeInTheDocument();
-  expect(container.querySelector("#home")).toBeInTheDocument();
-  expect(container.querySelector("#about")).toBeInTheDocument();
+  // Check for Home heading text
+  expect(screen.getByRole("heading", { name: /home/i })).toBeInTheDocument();
+
+  // Check for About heading text
+  expect(screen.getByRole("heading", { name: /about/i })).toBeInTheDocument();
 });
